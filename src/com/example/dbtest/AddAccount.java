@@ -23,9 +23,9 @@ public class AddAccount extends Activity {
 		    String myEditValue = valor1.getText().toString().trim();	
 		    String myEditValue2 = " temp";
 		    myEditValue2 = valor2.getText().toString().trim();	
-		    int valor=0;
+		    double valor=0;
 		    try {
-		        valor = Integer.parseInt(myEditValue); 
+		        valor = Double.parseDouble(myEditValue); 
 		    }
 		    catch(Exception e) {
 		        Log.e("logtag", "Exception: " + e.toString());//displays exception message in the LogCat
@@ -37,10 +37,11 @@ public class AddAccount extends Activity {
 		    mDbHelper = new Database(this);
 	        mDbHelper.open();
 	        mDbHelper.createNote(accounts);
-	        //mDbHelper.close();
-	        Toast.makeText(getApplicationContext(), accounts.getText()+" "+ accounts.getAmount(), Toast.LENGTH_LONG).show();	
+	        mDbHelper.close();
+	        Toast.makeText(getApplicationContext(), accounts.getText()+" account created with $"+ accounts.getAmount(), Toast.LENGTH_LONG).show();	
 	       
 	}
+	
 	
 
 

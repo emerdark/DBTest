@@ -25,14 +25,12 @@ public class MainActivity extends Activity {
 	public void showDB(View v){
 		//Toast.makeText(getApplicationContext(), "this button works", Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(MainActivity.this, DisplayDB.class);
-		MainActivity.this.startActivity(intent);		
-		
+		MainActivity.this.startActivity(intent);			
 	}
 	
 	public void addAccount(View v){
 		Intent intent2 = new Intent(MainActivity.this, AddAccount.class);
-		MainActivity.this.startActivity(intent2);		
-		
+		MainActivity.this.startActivity(intent2);			
 	}
 	
 

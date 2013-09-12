@@ -17,14 +17,9 @@ public class Database {
 
     private static final String TAG = "Database";
     private DatabaseHelper mDbHelper;
-    private SQLiteDatabase mDb;
+    private SQLiteDatabase mDb;    
 
-    /**
-     * Database creation sql statement
-     */
-    
-
-    private static final String DATABASE_NAME = "FIFTH";
+    private static final String DATABASE_NAME = "WhatIGot";
     private static final String DATABASE_TABLE = "Account";
     private static final int DATABASE_VERSION = 2;
     
@@ -53,7 +48,6 @@ public class Database {
             onCreate(db);
         }
     }
-
   
     public Database(Context ctx) {
         this.mCtx = ctx;
@@ -69,25 +63,27 @@ public class Database {
         mDbHelper.close();
     }
 
-
     public long createNote(Accounts accounts) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ACC, accounts.getText());
         initialValues.put(KEY_AMT, accounts.getAmount());
-
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
-
+    
+    //use this to delete an Account
     public boolean deleteNote(long rowId) {
-
         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
-
- 
+    
     public Cursor fetchAllNotes() {
-
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_ACC,
                 KEY_AMT}, null, null, null, null, null);
+    }
+    
+    public Cursor getAllAmount(){    	
+    	return mDb.query(DATABASE_TABLE, new String[] {
+                KEY_AMT}, null, null, null, null, null);  	
+    	
     }
 
     /**
@@ -100,7 +96,6 @@ public class Database {
     public Cursor fetchNote(long rowId) throws SQLException {
 
         Cursor mCursor =
-
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
             		KEY_ACC, KEY_AMT}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
