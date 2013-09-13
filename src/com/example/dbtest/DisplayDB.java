@@ -23,18 +23,21 @@ public class DisplayDB extends ListActivity {
 		Cursor accountsCursor = mDbHelper.fetchAllNotes();
 		startManagingCursor(accountsCursor);
 		SimpleCursorAdapter notes = new SimpleCursorAdapter(this,
-				R.layout.accounts_row, accountsCursor, new String[]{Database.KEY_ACC ,Database.KEY_AMT}, new int[]{R.id.text1, R.id.text2});
-		setListAdapter(notes);
-		
+				R.layout.accounts_row, accountsCursor, new String[]{Database.KEY_ACC ,Database.KEY_AMT, Database.KEY_TYPE}, new int[]{R.id.text1, R.id.text2, R.id.text3});
+		setListAdapter(notes);		
 		
 		double total=0;
-		while(accountsCursor.moveToNext()){		
+		String type="Debit";
+		while(accountsCursor.moveToNext()){	
+			type = accountsCursor.getString(accountsCursor.getColumnIndex(Database.KEY_TYPE));
+			if(type.matches("Debit"))
 			total+= accountsCursor.getDouble(accountsCursor.getColumnIndex(Database.KEY_AMT));		
-			
+			else
+				total-= accountsCursor.getDouble(accountsCursor.getColumnIndex(Database.KEY_AMT));	
 		}	
 		
 		TextView totalText = (TextView)(this.findViewById(R.id.text3));
-		totalText.setText("You Have $"+Double.toString(total));
+		totalText.setText("You got $"+Double.toString(total));
 		//Toast.makeText(getApplicationContext(), Double.toString(total), Toast.LENGTH_LONG).show();	
 		
 		//close the database

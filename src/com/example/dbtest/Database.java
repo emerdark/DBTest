@@ -13,18 +13,19 @@ public class Database {
 
     public static final String KEY_ACC= "Account";
     public static final String KEY_AMT = "Amount";
+    public static final String KEY_TYPE = "Type";
     public static final String KEY_ROWID = "_id";
 
     private static final String TAG = "Database";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;    
 
-    private static final String DATABASE_NAME = "WhatIGot";
+    private static final String DATABASE_NAME = "WhatIGot2";
     private static final String DATABASE_TABLE = "Account";
     private static final int DATABASE_VERSION = 2;
     
     private static final String DATABASE_CREATE =
-    		"CREATE TABLE " + DATABASE_TABLE + " ( " + KEY_ROWID + " integer PRIMARY KEY autoincrement, " + KEY_ACC + " STRING, " + KEY_AMT + " DOUBLE );";
+    		"CREATE TABLE " + DATABASE_TABLE + " ( " + KEY_ROWID + " integer PRIMARY KEY autoincrement, " + KEY_ACC + " STRING, " + KEY_AMT + " DOUBLE, " + KEY_TYPE+ " STRING );";
 
     private final Context mCtx;
 
@@ -67,6 +68,7 @@ public class Database {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ACC, accounts.getText());
         initialValues.put(KEY_AMT, accounts.getAmount());
+        initialValues.put(KEY_TYPE, accounts.getType());
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
     
@@ -77,7 +79,7 @@ public class Database {
     
     public Cursor fetchAllNotes() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_ACC,
-                KEY_AMT}, null, null, null, null, null);
+                KEY_AMT, KEY_TYPE}, null, null, null, null, null);
     }
     
     public Cursor getAllAmount(){    	
@@ -97,7 +99,7 @@ public class Database {
 
         Cursor mCursor =
             mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-            		KEY_ACC, KEY_AMT}, KEY_ROWID + "=" + rowId, null,
+            		KEY_ACC, KEY_AMT, KEY_TYPE}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
