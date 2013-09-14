@@ -87,6 +87,11 @@ public class Database {
                 KEY_AMT}, null, null, null, null, null);  	
     	
     }
+    
+    public Cursor getAllAccount(){
+    	return mDb.query(DATABASE_TABLE, new String[] {
+                KEY_ACC}, null, null, null, null, null);  
+    }
 
     /**
      * Return a Cursor positioned at the note that matches the given rowId
@@ -118,10 +123,11 @@ public class Database {
      * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateNote(long rowId, String title, String body) {
+    public boolean updateNote(long rowId, String account, double amount) {
         ContentValues args = new ContentValues();
-        args.put(KEY_ACC, title);
-        args.put(KEY_AMT, body);
+        args.put(KEY_ACC, account);
+        args.put(KEY_AMT, amount);
+        
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
