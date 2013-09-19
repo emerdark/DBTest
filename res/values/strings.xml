@@ -8,5 +8,6 @@
          <item>Debit</item>
         <item>Credit</item>       
     </string-array>
+    <string name="menu_string">Exit</string>
 
 </resources>

@@ -1,9 +1,15 @@
 package com.example.dbtest;
 
+import java.text.NumberFormat;
+
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -22,6 +28,7 @@ public class DisplayDB extends ListActivity {
 
 	//calls from database two rows and displays them
 	private void fillData() {
+		NumberFormat format = NumberFormat.getCurrencyInstance();
 		mDbHelper = new Database(this);
 		mDbHelper.open();
 		Cursor accountsCursor = mDbHelper.fetchAllNotes();
@@ -41,7 +48,7 @@ public class DisplayDB extends ListActivity {
 		}	
 		
 		TextView totalText = (TextView)(this.findViewById(R.id.text3));
-		totalText.setText("You got $"+Double.toString(total));
+		totalText.setText("You Got "+format.format(total));
 				
 		//close Cursor
 		//accountsCursor.close();
@@ -61,5 +68,36 @@ public class DisplayDB extends ListActivity {
     	intent2.putExtra(Database.KEY_ROWID, id);
 		DisplayDB.this.startActivity(intent2);		
     }
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, Menu.FIRST, 0, R.string.menu_string);        
+        return true;
+    }
+	
+	 @Override
+	    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	        switch(item.getItemId()) {
+	            case Menu.FIRST:
+	            	AlertDialog.Builder adb = new AlertDialog.Builder(DisplayDB.this);
+	    			adb.setTitle("Are You Sure You Want To Exit?");
+	    			adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    				public void onClick(DialogInterface dialog, int id) {
+	    					Intent intent = new Intent(DisplayDB.this, MainActivity.class);
+	    	                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    	                intent.putExtra("Exit me", true);
+	    	                startActivity(intent);
+	    	                finish();
+	    				}
+	    			});
+	    			adb.setNegativeButton("Cancel", null);
+	    			adb.show();
+	            	
+	                return true;
+	        }
+
+	        return super.onMenuItemSelected(featureId, item);
+	    }
 
 }

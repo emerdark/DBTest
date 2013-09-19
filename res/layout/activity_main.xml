@@ -10,20 +10,22 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="100dip"
+        android:layout_width="180dip"
         android:layout_height="50dip"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_marginBottom="64dp"
         android:onClick="addAccount"
-        android:text="Add" />
+        android:text="Add New Account" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="100dip"
+        android:layout_width="180dip"
         android:layout_height="50dip"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="42dp"
+        android:layout_marginLeft="15dp"
         android:onClick="showDB"
-        android:text="Show DB" />
+        android:text="View Accounts" />
 
 </RelativeLayout>

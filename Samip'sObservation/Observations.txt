@@ -1,0 +1,2 @@
+- Whenever you create a java class that extends activity and is calling for an xml file to be loaded on the screen, that java class has to be defined in AndroidManifest.xml 
+- Edittext maneuvers like "Key_Events" are not emulated by the emulator. Use phone to see/debug those features.
